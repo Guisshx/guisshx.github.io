@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #050505;
+            color: #ccc;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            padding: 50px;
+            height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+            color: #fff;
+            font-weight: normal;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitulo {
+            color: #00d4ff;
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        p {
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* Estilo de la imagen central */
+        .marco-foto {
+            padding: 10px;
+            border: 1px solid #333; /* Borde externo gris */
+            display: inline-block;
+        }
+        
+        .marco-foto img {
+            display: block;
+            max-width: 400px; /* Tamaño controlado */
+            width: 100%;
+            border: 2px solid #00d4ff; /* Borde interno azul neón */
+            filter: grayscale(100%);
+            transition: 1s;
+        }
+
+        .marco-foto img:hover {
+            filter: grayscale(0%);
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Hola, Melina.</h2>
+    <div class="subtitulo"> // Espacio personal // </div>
+    
+    <div class="marco-foto">
+        <img src="inicio.jpg" alt="Nosotros">
+    </div>
+
+    <p>
+        Creé este pequeño sitio porque quería un lugar que fuera solo nuestro.
+        Aquí no hay ruido, solo algunas canciones y recuerdos que me hacen pensar en ti.
+    </p>
+
+    <p style="font-size: 0.7rem; color: #555;">
+        (Navega usando el menú de la izquierda)
+    </p>
+
+</body>
+</html>

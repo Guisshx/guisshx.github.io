@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #050505;
+            color: #ccc;
+            font-family: 'Courier New', monospace;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #00d4ff;
+            border-bottom: 1px dashed #00d4ff;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- LISTA DE CANCIONES --- */
+        .tracklist {
+            list-style: none;
+            padding: 0;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .cancion {
+            padding: 15px 10px;
+            border-bottom: 1px solid #222;
+            color: #888;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cancion:hover {
+            color: #fff;
+            background-color: #0a0a0a;
+            padding-left: 20px;
+        }
+
+        .numero {
+            color: #00d4ff; /* Azul neón */
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        /* --- EL BOTÓN INTERMEDIO --- */
+        .bloque-boton {
+            margin: 40px 0; /* Espacio antes y después */
+            text-align: center;
+            animation: aparecer 2s ease-in-out;
+        }
+
+        .spotify-btn {
+            display: inline-block;
+            background-color: transparent;
+            color: #1DB954; /* Verde Spotify */
+            text-decoration: none;
+            padding: 15px 40px;
+            border: 2px solid #1DB954;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .spotify-btn:hover {
+            background-color: #1DB954;
+            color: #000;
+            box-shadow: 0 0 20px rgba(29, 185, 84, 0.5);
+            transform: scale(1.05);
+        }
+
+        @keyframes aparecer {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Playlist 📼</h2>
+
+    <ul class="tracklist">
+        
+        <li class="cancion">
+            <span><span class="numero">01.</span> Sueño Guajiro</span>
+            <span>3:04</span>
+        </li>
+
+        <li class="cancion">
+            <span><span class="numero">02.</span> Lucky</span>
+            <span>4:05</span>
+        </li>
+
+        <li class="cancion">
+            <span><span class="numero">03.</span> I wanna be yours</span>
+            <span>3:04</span>
+        </li>
+
+        <li class="cancion">
+            <span><span class="numero">04.</span> Ropa De Bazar</span>
+            <span>3:18</span>
+        </li>
+        
+        <li class="cancion">
+            <span><span class="numero">05.</span> ALMA DINAMITA</span>
+            <span>2:54</span>
+        </li>
+
+        <li class="cancion">
+            <span><span class="numero">06.</span> Loco (Tu Forma De Ser)</span>
+            <span>5:13</span>
+        </li>
+
+        <li class="cancion" style="border-bottom: none;"> <span><span class="numero">07.</span> Brillas</span>
+            <span>3:46</span>
+        </li>
+
+    </ul>
+
+    <div class="bloque-boton">
+        <p style="font-size: 0.8rem; color: #555; margin-bottom: 15px;">
+            ... y la historia sigue aquí:
+        </p>
+        
+        <a href="https://open.spotify.com/playlist/1gmnFqWjtiB42zeQolDQIf?si=f610170861db4a3e&pt=94a6f47723bab5d51ff064dedf35964d" target="_blank" class="spotify-btn">
+            ▶ Escuchar Playlist Completa
+        </a>
+    </div>
+
+</body>
+</html>

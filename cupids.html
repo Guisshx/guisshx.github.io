@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>Edición Especial @guisshx</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Great+Vibes&family=Oswald:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- COLORES --- */
+        :root {
+            --azul-bonito: #5DADE2;
+            --azul-oscuro: #3498db;
+        }
+
+        /* --- GENERAL --- */
+        body {
+            background-color: #e8e8e8;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent; /* Quita el cuadro azul al tocar en Android */
+        }
+
+        /* --- PANTALLA DE BIENVENIDA (CARTA) --- */
+        #intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease;
+        }
+
+        .envelope-wrapper {
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .envelope-wrapper:hover { transform: scale(1.05); }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background-color: var(--azul-oscuro);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Solapas */
+        .envelope:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0; height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #85C1E9;
+            z-index: 2;
+        }
+        .envelope:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0; height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 100px solid var(--azul-bonito);
+            z-index: 3;
+            border-radius: 0 0 5px 5px;
+        }
+
+        /* CORAZÓN */
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: #e74c3c;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            z-index: 4;
+            animation: latido 1.5s infinite;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+        }
+        .heart:before { top: -25px; left: 0; }
+        .heart:after { left: 25px; top: 0; }
+
+        @keyframes latido {
+            0%   { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
+            15%  { transform: translate(-50%, -50%) rotate(-45deg) scale(1.1); }
+            30%  { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
+            45%  { transform: translate(-50%, -50%) rotate(-45deg) scale(1.1); }
+            100% { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
+        }
+
+        .click-text {
+            color: white; margin-top: 30px; font-family: 'Oswald', sans-serif;
+            font-size: 18px; letter-spacing: 2px; text-transform: uppercase;
+            animation: parpadeo 2s infinite;
+        }
+        @keyframes parpadeo { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* --- CONTROL VOLUMEN --- */
+        .volume-control {
+            position: fixed; right: 20px; bottom: 20px;
+            background-color: white; padding: 15px 10px;
+            border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999; display: flex; flex-direction: column; align-items: center;
+            gap: 10px; border: 2px solid var(--azul-bonito);
+            opacity: 0; transition: opacity 1s;
+        }
+        .volume-icon { color: var(--azul-bonito); font-size: 20px; }
+        input[type=range] {
+            -webkit-appearance: none; width: 100px; height: 6px;
+            background: #ddd; border-radius: 5px; outline: none;
+            transform: rotate(-90deg); margin: 40px -40px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 18px; height: 18px;
+            border-radius: 50%; background: var(--azul-bonito);
+            cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        /* --- PERIÓDICO --- */
+        .newspaper {
+            background-color: #fffaf0; width: 100%; max-width: 800px; padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid #d4d4d4;
+            position: relative; z-index: 1; opacity: 0; transition: opacity 1s ease;
+        }
+        header { text-align: center; margin-bottom: 20px; border-bottom: 3px double #333; padding-bottom: 10px; }
+        h1.logo { font-family: 'UnifrakturMaguntia', cursive; font-size: 65px; margin: 0; letter-spacing: 1px; line-height: 1; padding-bottom: 10px; }
+        .meta-bar { border-top: 1px solid #333; padding-top: 5px; display: flex; justify-content: space-between; font-size: 13px; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; font-family: 'Oswald', sans-serif; }
+        .headline-container { text-align: center; margin: 40px 0; }
+        .headline-top { font-family: 'Oswald', sans-serif; font-size: 60px; line-height: 0.9; text-transform: uppercase; font-weight: 700; display: block; letter-spacing: -1px; }
+        .headline-bottom { font-family: 'Oswald', sans-serif; font-size: 60px; line-height: 0.9; text-transform: uppercase; font-weight: 700; }
+        .cursive { font-family: 'Great Vibes', cursive; text-transform: none; font-weight: 400; font-size: 85px; margin-left: 10px; display: inline-block; color: #d12e2e; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-bottom: 30px; align-items: start; }
+        .photo-container { border: 1px solid #ccc; padding: 5px; background: white; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+        .photo { width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%) contrast(1.1); display: block; }
+        article h3 { font-family: 'Oswald', sans-serif; font-size: 20px; margin-top: 0; text-transform: uppercase; border-bottom: 2px solid #333; padding-bottom: 8px; margin-bottom: 15px; letter-spacing: 1px; }
+        article p { font-size: 15px; line-height: 1.7; text-align: justify; margin-bottom: 0; }
+        article p::first-letter { float: left; font-family: 'UnifrakturMaguntia', cursive; font-size: 55px; line-height: 45px; padding-right: 8px; padding-top: 4px; }
+        .action-area { text-align: center; margin: 40px 0; border-top: 1px solid #333; padding-top: 20px; }
+        .btn-newspaper { background-color: #1a1a1a; color: white; font-family: 'Oswald', sans-serif; font-size: 20px; padding: 10px 30px; border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s ease; }
+        .btn-newspaper:hover { background-color: var(--azul-bonito); transform: scale(1.05); }
+
+        /* --- MODALES --- */
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .modal-content { background-color: #fffaf0; padding: 40px; border: 2px solid #333; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 0 20px rgba(255,255,255,0.2); position: relative; }
+        .modal h2 { font-family: 'Great Vibes', cursive; font-size: 60px; margin: 0 0 30px 0; color: #d12e2e; }
+        .modal-buttons { display: flex; justify-content: center; gap: 20px; height: 60px; position: relative; }
+        
+        .btn-yes { background-color: #28a745; color: white; font-family: 'Oswald', sans-serif; padding: 10px 30px; border: none; cursor: pointer; font-size: 18px; z-index: 2; }
+        
+        /* Botón NO mejorado para que no se deje atrapar */
+        .btn-no { 
+            background-color: #dc3545; color: white; font-family: 'Oswald', sans-serif; 
+            padding: 10px 30px; border: none; cursor: pointer; font-size: 18px; 
+            position: relative; 
+            transition: top 0.2s, left 0.2s; /* Movimiento suave */
+        }
+        
+        footer { text-align: center; border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 15px 0; margin-top: 30px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+        
+        @media (max-width: 600px) {
+            .content-grid { grid-template-columns: 1fr; }
+            h1.logo { font-size: 45px; }
+            .headline-top, .headline-bottom { font-size: 40px; }
+            .cursive { font-size: 50px; }
+            .newspaper { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="rp.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="yayMusic">
+        <source src="yay.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="intro-screen">
+        <div class="envelope-wrapper" onclick="entrar()">
+            <div class="envelope">
+                <div class="heart"></div>
+            </div>
+        </div>
+        <div class="click-text">Toca la carta para abrir</div>
+    </div>
+
+    <div class="volume-control" id="volControl">
+        <i class="fas fa-volume-up volume-icon"></i>
+        <input type="range" id="volumeSlider" min="0" max="100" value="25">
+    </div>
+
+    <div class="newspaper" id="newspaperContent">
+        <header>
+            <h1 class="logo">guisshx post</h1>
+            <div class="meta-bar">
+                <span>Ciudad de México</span>
+                <span>31 de Enero de 2026</span>
+            </div>
+        </header>
+
+        <div class="headline-container">
+            <span class="headline-top">¿QUIERES SER MI</span><br>
+            <span class="headline-bottom">San <span class="cursive">Valentín?</span></span>
+        </div>
+
+        <div class="content-grid">
+            <div class="column">
+                <div class="photo-container">
+                    <img src="6.jpeg" alt="My beautiful girl" class="photo">
+                </div>
+                <br>
+                <article>
+                    <h3>Crónicas del CCH Oriente</h3>
+                    <p>
+                        Todo comenzó en los pasillos de nuestra escuela, en tercer semestre. Aún recuerdo aquel primer acercamiento en inglés, donde tú sabías mi nombre antes de ese 2 de septiembre en que yo supe el tuyo. Pero la historia real inició el 5 de septiembre, esperando en el edificio L.
+                    </p>
+                    <p style="margin-top: 10px;">
+                        Fueron 30 minutos que lo cambiaron todo. Hablaste de tus perros y de mil cosas más. Yo sentía pena, tu belleza me intimidaba y me hacía sentir incómodo de la mejor manera posible. Un intercambio de Instagram abrió la puerta a lo que somos hoy. Si me preguntas, no podría decirte un recuerdo favorito en específico, porque simplemente aprecio todo al estar contigo.
+                    </p>
+                </article>
+            </div>
+
+            <div class="column">
+                <article>
+                    <h3>La Musa de Cabello Azul</h3>
+                    <p>
+                        Hay detalles que se quedan grabados en la memoria y definen por qué alguien se vuelve especial. Me gustan tus ojos cafés, capaces de decirlo todo sin pronunciar palabra. Me gusta tu voz, que se ha convertido en mi sonido favorito.
+                    </p>
+                    <p style="margin-top: 10px;">
+                        Y me encanta ese contraste de tu cabello, aquel negro intenso que conocí y que ahora llevas teñido de azul, reflejando lo única que eres. Cada uno de estos detalles confirma, día tras día, que esta pregunta es la más fácil que he tenido que hacer.
+                    </p>
+                </article>
+                <br>
+                <div class="photo-container">
+                    <img src="5.jpeg" alt="Nosotros" class="photo">
+                </div>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <button class="btn-newspaper" onclick="mostrarPregunta()">RESPUESTA</button>
+        </div>
+
+        <footer>Para la niña de los ojos BONITOS</footer>
+    </div>
+
+    <div id="miModal" class="modal">
+        <div class="modal-content">
+            <h2>¿Aceptas?</h2>
+            <div class="modal-buttons">
+                <button class="btn-yes" onclick="aceptar()">SÍ</button>
+                <button class="btn-no" id="btnNo" onmouseover="moverBoton()" ontouchstart="moverBoton()">NO</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalFinal" class="modal">
+        <div class="modal-content">
+            <h2>¡Sabía que dirías que sí! ❤️</h2>
+            <p style="font-size: 20px;">Te amo muchísimo.</p>
+        </div>
+    </div>
+
+    <script>
+        var music = document.getElementById("bgMusic");
+        var yayAudio = document.getElementById("yayMusic");
+        var volSlider = document.getElementById("volumeSlider");
+
+        function entrar() {
+            var intro = document.getElementById("intro-screen");
+            var content = document.getElementById("newspaperContent");
+            var volControl = document.getElementById("volControl");
+
+            intro.style.opacity = "0";
+            setTimeout(function() { intro.style.display = "none"; }, 1000);
+
+            content.style.opacity = "1";
+            volControl.style.opacity = "1";
+
+            music.volume = 0.25; 
+            music.play().catch(function(error) { console.log(error); });
+        }
+
+        volSlider.oninput = function() { music.volume = this.value / 100; }
+
+        function mostrarPregunta() {
+            document.getElementById("miModal").style.display = "flex";
+        }
+
+        function aceptar() {
+            document.getElementById("miModal").style.display = "none";
+            document.getElementById("modalFinal").style.display = "flex";
+            yayAudio.play();
+        }
+
+        // --- FUNCIÓN OPTIMIZADA PARA MOVER BOTÓN ---
+        function moverBoton() {
+            var btnNo = document.getElementById("btnNo");
+            
+            // Obtenemos dimensiones de la ventana y del botón
+            var winWidth = window.innerWidth;
+            var winHeight = window.innerHeight;
+            var btnWidth = btnNo.offsetWidth;
+            var btnHeight = btnNo.offsetHeight;
+
+            // Restamos el tamaño del botón y un margen (padding) para que no se salga
+            var maxX = winWidth - btnWidth - 40; 
+            var maxY = winHeight - btnHeight - 40;
+
+            // Aseguramos que los valores no sean negativos
+            if (maxX < 0) maxX = 0;
+            if (maxY < 0) maxY = 0;
+
+            // Calculamos posición aleatoria segura
+            var newX = Math.random() * maxX;
+            var newY = Math.random() * maxY;
+
+            // Aplicamos posición fija
+            btnNo.style.position = "fixed";
+            btnNo.style.left = (newX + 20) + "px"; // +20 para dar margen izquierdo
+            btnNo.style.top = (newY + 20) + "px";  // +20 para dar margen superior
+        }
+    </script>
+</body>
+</html>

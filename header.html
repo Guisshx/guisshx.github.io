@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #050505;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ocupa todo el alto del frame */
+            display: flex;
+            align-items: center;     /* Centrado vertical */
+            justify-content: center; /* Centrado horizontal */
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+            border-bottom: 2px solid #00d4ff;
+            position: relative; /* Necesario para que funcione lo de abajo */
+        }
+
+        h1 {
+            color: #00d4ff;
+            font-size: 80px; /* Tamaño enorme para llenar el marco de 120px */
+            margin: 0;
+            letter-spacing: -2px; /* Las letras pegaditas estilo cartel */
+            text-transform: uppercase;
+            white-space: nowrap; /* Evita que el texto se parta en dos lineas */
+            z-index: 1; /* Nivel inferior */
+        }
+
+        /* Contenedor de la notificación */
+        #notif-container {
+            display: none; /* Oculto al inicio */
+            position: absolute; /* Flota sobre todo lo demás */
+            right: 30px; /* Pegado a la derecha */
+            top: 50%;
+            transform: translateY(-50%); /* Centrado vertical exacto */
+            z-index: 10; /* Nivel superior (encima del título) */
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .icono-sobre {
+            font-size: 40px;
+            display: block;
+            filter: drop-shadow(0 0 5px #000); /* Sombra negra para que se lea si tapa el texto */
+            animation: vibrar 0.5s infinite;
+        }
+
+        .texto-aviso {
+            font-size: 10px;
+            background: #00d4ff;
+            color: #000;
+            padding: 2px 5px;
+            font-weight: bold;
+            display: block;
+            margin-top: -5px;
+        }
+
+        @keyframes vibrar {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>M E L I N A</h1>
+
+    <div id="notif-container" onclick="leerCarta()">
+        <span class="icono-sobre">📩</span>
+        <span class="texto-aviso">LEER</span>
+    </div>
+
+    <audio id="sonido-aviso" src="sanji.m4a"></audio>
+
+    <script>
+        // LÓGICA DEL TEMPORIZADOR
+        // Se mantiene aquí para que no se pierda al navegar
+        setTimeout(() => {
+            mostrarNotificacion();
+        }, 12000); // 12 segundos
+
+        function mostrarNotificacion() {
+            const notif = document.getElementById('notif-container');
+            const audio = document.getElementById('sonido-aviso');
+            
+            notif.style.display = 'block';
+            
+            audio.volume = 0.4;
+            audio.play().catch(e => console.log("Audio bloqueado"));
+        }
+
+        function leerCarta() {
+            // Confirmación personalizada
+            const respuesta = confirm("Melina, \n\n¿Tienes un momento para leer algo importante?");
+            
+            if (respuesta) {
+                // Redirige toda la página
+                parent.location.href = "cupids.html";
+            }
+        }
+    </script>
+</body>
+</html>
